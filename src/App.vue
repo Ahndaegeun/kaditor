@@ -1,5 +1,5 @@
 <template>
-  <editor/>
+  <editor @exportContent="getContent"/>
 </template>
 
 <script>
@@ -9,6 +9,11 @@ export default {
   name: 'App',
   components: {
     editor
+  },
+  methods: {
+    getContent(e) {
+      alert(e)
+    }
   }
 }
 </script>

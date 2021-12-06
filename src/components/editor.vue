@@ -20,10 +20,11 @@
         <label for="color" :style="{'background':color}" class="color-label"></label>
         <input id="color" type="color" @select="colorPicker" v-model="color">
       </div>
+
+      <input type="file" class="file">
     </div>
     <div id="content" @keyup="getText" contenteditable="true"></div>
-    <button @click="exportContent">export</button>
-    <div class="result">{{exportC}}</div>
+    <button type="button" class="export-btn" @click="exportContent">글 작성</button>
   </div>
 </template>
 
@@ -114,7 +115,7 @@ export default {
     },
     exportContent() {
       this.exportC = document.querySelector('#content').innerHTML
-      console.log(this.exportC)
+      this.$emit('exportContent', this.exportC)
     }
   },
   watch: {
@@ -195,5 +196,23 @@ body {
   border: 1px solid #ecf0f1;
   border-top: 0px;
   padding: 10px;
+}
+
+.file {
+  margin-left: auto;
+  width: 35%;
+}
+
+.export-btn {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  border: none;
+  outline: none;
+  background: #FF8906;
+  color: #fff;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 10px;
 }
 </style>

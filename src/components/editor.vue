@@ -16,10 +16,7 @@
         <input id="upload-file" type="file" @change="uploadFile">
       </div>
       
-      <div class="color-box">
-        <label for="color" :style="{'background':color}" class="color-label"></label>
-        <input id="color" type="color" @select="colorPicker" v-model="color">
-      </div>
+      <input id="color" type="color" v-model="color">
 
       <input type="file" class="file" @change="uploadFile">
     </div>
@@ -91,8 +88,8 @@ export default {
         const img = `<img style="width: 300px; height: 300px;" src="data:image/*;base64,${this.image}" alt="img"/>`
         document.execCommand('insertHTML', false, img)
       }else if(command === 'foreColor') {
-        document.execCommand(command, false, this.color)
-      } else  {
+        document.execCommand('ForeColor', false, this.color)
+      } else {
         document.execCommand(command, false, null)
       }
     },
@@ -184,22 +181,6 @@ body {
 
 #upload-file{
   display: none;
-}
-
-#color {
-  width: 0;
-  height: 0;
-  display: block;
-  position: absolute;
-  top: 0;
-  right: 0;
-  z-index: -10;
-}
-
-.color-label {
-  display: block;
-  width: 15px;
-  height: 15px;
 }
 
 [type="color"] {

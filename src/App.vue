@@ -12,7 +12,7 @@ export default {
   },
   methods: {
     getContent(e) {
-      alert(e)
+      console.log(e)
     }
   }
 }

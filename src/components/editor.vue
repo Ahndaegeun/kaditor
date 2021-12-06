@@ -21,7 +21,7 @@
         <input id="color" type="color" @select="colorPicker" v-model="color">
       </div>
 
-      <input type="file" class="file">
+      <input type="file" class="file" @change="uploadFile">
     </div>
     <div id="content" @keyup="getText" contenteditable="true"></div>
     <button type="button" class="export-btn" @click="exportContent">글 작성</button>
@@ -33,6 +33,7 @@ export default {
   name: 'editor',
   data() {
     return {
+      exportFile: '',
       exportC: '',
       content: '',
       image: '',
@@ -99,6 +100,16 @@ export default {
       const files = e.target.files
       const file = files[0]
 
+      const maxSize = 5 * 1024 * 1024
+      const fileSize = file.size
+
+      if(fileSize > maxSize) {
+        alert('첨부파일은 5MB 이내로 등록 가능합니다.')
+        e.target.value = ''
+        return
+      }
+      this.exportFile = files
+
       if(files && file){
         const reader = new FileReader()
 
@@ -115,7 +126,11 @@ export default {
     },
     exportContent() {
       this.exportC = document.querySelector('#content').innerHTML
-      this.$emit('exportContent', this.exportC)
+      const returnData = {
+        _data: this.exportC,
+        _file: this.exportFile
+      }
+      this.$emit('exportContent', returnData)
     }
   },
   watch: {
